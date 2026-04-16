@@ -149,7 +149,7 @@ async function checkAll() {
 client.once("ready", async () => {
   console.log(`Logged in as ${client.user.tag}`);
   await checkAll();
-  setInterval(checkAll, 5 * 60 * 1000);
+  setInterval(checkAll, 60 * 60 * 1000);
 });
 
 client.login(process.env.DISCORD_TOKEN);

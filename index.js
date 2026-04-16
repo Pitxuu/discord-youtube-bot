@@ -111,27 +111,24 @@ async function checkAll() {
 
         if (data[c.id] !== latest.id) {
           if (data[c.id]) {
-            await uploadChannel.send(
-              `<@&${process.env.UPLOAD_ROLE_ID}> ${c.name.toUpperCase()} JUST UPLOADED! https://youtu.be/${latest.id}`
-            );
+            await uploadChannel.send({
+              content: `<@&${process.env.UPLOAD_ROLE_ID}> ${c.name.toUpperCase()} JUST UPLOADED! https://youtu.be/${latest.id}`,
+              allowedMentions: { roles: [process.env.UPLOAD_ROLE_ID] }
+            });
           }
+
           data[c.id] = latest.id;
         }
 
         // Check livestreams
         const live = await checkLive(c.id);
 
-if (live && data[`${c.id}_live`] !== live.id.videoId) {
-  await liveChannel.send({
-    content: `<@&${process.env.LIVE_ROLE_ID}> ${c.name.toUpperCase()} IS LIVE! https://youtu.be/${live.id.videoId}`,
-    allowedMentions: { roles: [process.env.LIVE_ROLE_ID] }
-  });
+        if (live && data[`${c.id}_live`] !== live.id.videoId) {
+          await liveChannel.send({
+            content: `<@&${process.env.LIVE_ROLE_ID}> ${c.name.toUpperCase()} IS LIVE! https://youtu.be/${live.id.videoId}`,
+            allowedMentions: { roles: [process.env.LIVE_ROLE_ID] }
+          });
 
-  data[`${c.id}_live`] = live.id.videoId;
-}
-  data[`${c.id}_live`] = live.id.videoId;
-}
-          );
           data[`${c.id}_live`] = live.id.videoId;
         }
 
